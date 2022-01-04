@@ -36,6 +36,10 @@ end_of_main = None
 def report():
     print(f"\nWater -> {resources['water']}\nMilk --> {resources['milk']}\nCoffee > {resources['coffee']}")
 
+def check_resources(coffe):
+    for i in MENU[coffe]['ingredients']:
+        print(f"{i} {MENU[coffe]['ingredients'][i]}")
+
 def choose_from_menu():
     good_choice = False
     while good_choice == False:
@@ -65,6 +69,11 @@ def main():
             print("\nBye, bye..")
         if my_choice == "report":
             report()
+        if my_choice in MENU:
+            print("\nLets prepare some coffe.")
+            check_resources(my_choice)
+
+
         
 
 
