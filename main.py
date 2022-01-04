@@ -79,9 +79,9 @@ def get_money(coffe):
         else:
             print("Please provide some more money..")
 
-# TODO Crete reduce resources
+# TODO Crete prepare_coffe()
 
-# TODO Create Filin machine
+# TODO Create filin_machine()
 
 def choose_from_menu():
     good_choice = False
