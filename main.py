@@ -37,7 +37,7 @@ money = {
     "petsto":500
 }
 
-special_commands = ["off","report"]
+special_commands = ["off","report","refill"]
 end_of_main = None
 
 def report():
@@ -76,12 +76,28 @@ def get_money(coffe):
             print("You have enough money. You will get your coffe :)")
             print(f"Your change is {total_amount - coffe_price}")
             enough = True
+            return enough
         else:
             print("Please provide some more money..")
 
-# TODO Crete prepare_coffe()
 
-# TODO Create filin_machine()
+def prepare_coffe(coffe):
+    print("Preparing coffe..")
+    for i in MENU[coffe]['ingredients']:
+        resources[i] -= MENU[coffe]['ingredients'][i]
+    print("Your coffe is prepared!")
+
+def fill_in_machine():
+    for r in resources:
+        ref = input(f"How much {r} you are adding? ")
+        if ref.isnumeric():
+            resources[r] += int(ref)
+        elif ref == "":
+            resources[r] += 0
+        else:
+            print("This cannot be accepted.")
+    print("New status.. ")
+    report()
 
 def choose_from_menu():
     good_choice = False
@@ -104,7 +120,6 @@ def choose_from_menu():
         elif choice not in extended_menu_options:
             print("\nYou need to chose something from the menu. Please try again..")
         #else:
-
     return choice
 
 def main():
@@ -114,15 +129,15 @@ def main():
         if my_choice == "off":
             end_of_main = True
             print("\nBye, bye..")
-        if my_choice == "report":
+        elif my_choice == "report":
             report()
-        if my_choice in MENU:
+        elif my_choice in MENU:
             print("\nLets prepare some coffe.")
             if check_resources(my_choice):
-                get_money(my_choice)
-
-
-        
+                if get_money(my_choice):
+                    prepare_coffe(my_choice)
+        elif my_choice == "refill":
+            fill_in_machine()
 
 
 main()
